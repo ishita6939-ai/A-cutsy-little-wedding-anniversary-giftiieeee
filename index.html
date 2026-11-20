@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Little Anniversary ♡</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff0f6;
+  font-family: Georgia, serif;
+  color: #98516f;
+}
+
+.card {
+  width: min(92%, 680px);
+  min-height: 600px;
+  padding: 25px 20px;
+  text-align: center;
+  background: #fffafd;
+  border: 2px solid #f3bfd3;
+  border-radius: 30px;
+  box-shadow: 0 15px 50px #e9b5ca55;
+  position: relative;
+  overflow: hidden;
+}
+
+h1 {
+  color: #bd6289;
+  font-size: clamp(25px, 6vw, 42px);
+  animation: pulse 2s infinite ease-in-out;
+  margin: 15px 0 8px;
+}
+
+.subtitle {
+  font-style: italic;
+  color: #d58aa8;
+  font-size: 19px;
+}
+
+.cake {
+  font-size: 115px;
+  display: block;
+  margin: 18px 0;
+  animation: bounce 2s infinite ease-in-out;
+}
+
+button {
+  background: #e88baa;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  padding: 16px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: .3s;
+  box-shadow: 0 5px 15px #e8a5bf66;
+}
+
+button:hover {
+  background: #b94f78;
+  transform: scale(1.06);
+  box-shadow: 0 0 25px #e88baa;
+}
+
+.footer {
+  font-size: 13px;
+  font-style: italic;
+  color: #d5a0b5;
+  margin-top: 22px;
+}
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  animation: floatUp linear forwards;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(30deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+#surprise {
+  display: none;
+}
+
+.message {
+  font-size: 21px;
+  line-height: 1.8;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.counter {
+  font-family: Arial, sans-serif;
+  color: #d58aa8;
+  margin: 12px;
+}
+
+@media(max-height: 700px) {
+  .card {
+    min-height: auto;
+    padding: 15px;
+  }
+  .cake {
+    font-size: 80px;
+    margin: 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="welcome">
+
+  <div style="color:#e5a9c0;font-size:22px">
+    ♡ ✧ ♡ ✧ ♡
+  </div>
+
+  <h1>HAPPY 17th<br>WEDDING ANNIVERSARY!</h1>
+
+  <div class="subtitle">to the iconic couple ♡</div>
+
+  <div class="cake">🎂</div>
+
+  <button onclick="openSurprise()">
+    Open your surprise ♡
+  </button>
+
+  <div class="footer">
+    made with love, just for you two ✧
+  </div>
+
+</div>
+
+<div class="card" id="surprise">
+
+  <div style="font-size:25px;color:#e5a9c0;margin-top:25px">
+    ♡ A LITTLE LOVE NOTE ♡
+  </div>
+
+  <h1>17 years of love</h1>
+
+  <div class="subtitle">
+    deserves 17 little reminders...
+  </div>
+
+  <div class="message" id="message">
+    Ready? ♡
+  </div>
+
+  <div class="counter" id="counter"></div>
+
+  <button id="nextButton" onclick="nextMessage()">
+    Reveal your first note ♡
+  </button>
+
+  <div class="footer">
+    ♡ made with love, just for you two ♡
+  </div>
+
+</div>
+
+<script>
+
+const messages = [
+"17 years, and still the original power couple. ♡",
+"You turned a house into a home filled with love.",
+"Your love story is my favourite story ever.",
+"You make ordinary days feel special.",
+"Thank you for showing me what teamwork looks like.",
+"Your laughter is one of my favourite sounds.",
+"You built a family full of memories and love.",
+"Even the smallest things you do for each other matter.",
+"You are proof that love grows through little moments.",
+"17 years of choosing each other. How iconic is that?",
+"You deserve all the flowers, cake and happiness in the world.",
+"I hope you never run out of things to laugh about.",
+"May you keep making silly memories together.",
+"You are each other's home, in every season.",
+"The world is a little sweeter because you found each other.",
+"My favourite thing about your love story is that I am part of it.",
+"Happy anniversary to my two favourite people. I love you both endlessly! ♡"
+];
+
+let current = 0;
+
+function openSurprise() {
+  document.getElementById("welcome").style.display = "none";
+  document.getElementById("surprise").style.display = "block";
+  burstHearts();
+}
+
+function nextMessage() {
+  const message = document.getElementById("message");
+  const counter = document.getElementById("counter");
+  const button = document.getElementById("nextButton");
+
+  if (current < messages.length) {
+    message.innerText = messages[current];
+    counter.innerText = (current + 1) + " / 17 little reminders ♡";
+    button.innerText = "Another one ♡";
+    current++;
+    burstHearts();
+  } else {
+    message.innerHTML =
+      "Happy 17th anniversary! ♡<br><br>" +
+      "Thank you for building a home filled with love, laughter and memories.<br><br>" +
+      "I am so lucky to be a part of your story.<br>" +
+      "Love you both to the moon and back! 💗";
+
+    counter.innerText = "The end... or just another beginning ♡";
+    button.innerText = "You've unlocked them all! ♡";
+    button.disabled = true;
+    button.style.opacity = "0.7";
+    burstHearts();
+  }
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = ["♡", "♥", "💗", "💕", "✧"][Math.floor(Math.random()*5)];
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (14 + Math.random() * 25) + "px";
+  heart.style.animationDuration = (3 + Math.random() * 4) + "s";
+  heart.style.color = ["#e88baa","#f3b4cc","#d58aa8","#f0c4d5"][Math.floor(Math.random()*4)];
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 7000);
+}
+
+setInterval(createHeart, 400);
+
+function burstHearts() {
+  for(let i=0; i<18; i++) {
+    setTimeout(createHeart, i*80);
+  }
+}
+
+// Mouse heart trail (computer only)
+document.addEventListener("mousemove", function(e) {
+  if(Math.random() > 0.35) return;
+  const heart = document.createElement("div");
+  heart.innerHTML = "♡";
+  heart.style.position = "fixed";
+  heart.style.left = e.clientX + "px";
+  heart.style.top = e.clientY + "px";
+  heart.style.pointerEvents = "none";
+  heart.style.color = "#e88baa";
+  heart.style.fontSize = "18px";
+  heart.style.transition = "1s";
+  heart.style.zIndex = "999";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.style.transform = "translateY(-35px)";
+    heart.style.opacity = "0";
+  }, 50);
+
+  setTimeout(() => heart.remove(), 1100);
+});
+
+</script>
+</body>
+</html>
